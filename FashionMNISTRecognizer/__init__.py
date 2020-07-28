@@ -15,12 +15,12 @@ logger = tf.get_logger()
 logger.setLevel(logging.ERROR)
 
 train_x, train_labels = loadlocal_mnist(
-    images_path='train-images-ubyte',
-    labels_path='train-labels-ubyte')
+    images_path='../resources/train-images-ubyte',
+    labels_path='../resources/train-labels-ubyte')
 
 test_x, test_labels = loadlocal_mnist(
-    images_path='t10k-images-ubyte',
-    labels_path='t10k-labels-ubyte')
+    images_path='../resources/t10k-images-ubyte',
+    labels_path='../resources/t10k-labels-ubyte')
 
 class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
                'Sandal',      'Shirt',   'Sneaker',  'Bag',   'Ankle boot']
@@ -30,7 +30,7 @@ class_names = ['T-shirt/top', 'Trouser', 'Pullover', 'Dress', 'Coat',
 train_dataset = np.array([normalize(array) for array in train_x])
 test_dataset = np.array([normalize(array) for array in test_x])
 
-# PLOTING THE DATA
+# PLOTTING THE DATA
 # image = train_dataset[0].reshape((28, 28))
 # plt.figure()
 # plt.imshow(image, cmap=plt.cm.binary)
@@ -51,14 +51,12 @@ model.compile(
 )
 
 # TRAINING THE MODEL
-# print(train_dataset.shape)
-# print(train_labels.shape)
 model.fit(
     x=train_dataset,
     y=train_labels,
     epochs=5)
 
-# test_loss, test_accuracy = model.evaluate(test_dataset, test_y)
+# TESTING THE MODEL
 success_counter = 0
 predictions = model.predict(test_dataset)
 for prediction, expected in zip(predictions, test_labels):
